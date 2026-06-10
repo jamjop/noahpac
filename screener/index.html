@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>USPSTF Patient Screener</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#F5F7F4; --card:#FFFFFF; --ink:#15282B; --ink-soft:#4A5E60;
+  --line:#D8DFDA; --gradeA:#0E7490; --gradeB:#365A9B; --gradeC:#7A7E72;
+  --women:#A14E6E; --men:#3E6E63; --warn:#8a5a17;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--paper);color:var(--ink);font-family:'Archivo',sans-serif;font-size:14px;line-height:1.4;padding-bottom:50px}
+.wrap{max-width:880px;margin:0 auto;padding:0 16px}
+
+header{padding:24px 16px 12px;max-width:880px;margin:0 auto}
+.eyebrow{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--gradeA);font-weight:600}
+h1{font-size:clamp(22px,4.5vw,30px);font-weight:800;font-stretch:75%;text-transform:uppercase;line-height:1.05;margin:4px 0}
+.datasource{font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:var(--ink-soft);margin-top:4px}
+.datasource .dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:#9AA8A4;margin-right:5px;vertical-align:middle}
+.datasource.live .dot{background:#1d9e63}
+
+/* patient panel */
+.panel{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px;margin-top:10px}
+.panel-grid{display:grid;grid-template-columns:130px 1fr;gap:16px;align-items:start}
+@media(max-width:560px){.panel-grid{grid-template-columns:1fr}}
+.field-label{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-soft);font-weight:600;display:block;margin-bottom:6px}
+input[type=number]{font-family:'IBM Plex Mono',monospace;font-size:26px;font-weight:600;width:100%;padding:8px 10px;border:1.5px solid var(--line);border-radius:8px;background:var(--paper);color:var(--ink)}
+input[type=number]:focus{outline:2px solid var(--gradeA);outline-offset:1px;border-color:var(--gradeA)}
+.seg{display:flex;gap:6px;flex-wrap:wrap}
+.seg button{font-family:'IBM Plex Mono',monospace;font-size:12px;font-weight:500;padding:9px 16px;border-radius:8px;border:1.5px solid var(--line);background:var(--paper);color:var(--ink-soft);cursor:pointer}
+.seg button.active{background:var(--ink);border-color:var(--ink);color:#fff}
+.seg button:focus-visible{outline:2px solid var(--gradeA);outline-offset:2px}
+.flags{margin-top:14px;border-top:1px dashed var(--line);padding-top:12px}
+.flags summary{font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--gradeA);cursor:pointer;user-select:none}
+.flag-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:4px 16px;margin-top:10px}
+.flag-grid label{display:flex;gap:8px;align-items:flex-start;font-size:12.5px;color:var(--ink-soft);padding:4px 0;cursor:pointer}
+.flag-grid input{margin-top:2px;accent-color:var(--gradeA)}
+
+/* results */
+.results{margin-top:22px}
+.group-head{display:flex;align-items:baseline;gap:10px;border-bottom:2px solid var(--ink);padding-bottom:4px;margin:22px 0 8px}
+.group-name{font-weight:800;font-stretch:80%;text-transform:uppercase;font-size:15px;letter-spacing:.04em}
+.group-count{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--gradeA);font-weight:600}
+.rec{background:var(--card);border:1px solid var(--line);border-radius:9px;padding:10px 12px;margin-top:7px}
+.rec-title{display:flex;align-items:center;flex-wrap:wrap;gap:7px;font-weight:700;font-size:14px}
+.chip{display:inline-flex;align-items:center;justify-content:center;font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:10px;min-width:19px;height:17px;padding:0 5px;border-radius:3px;color:#fff}
+.chip.A{background:var(--gradeA)} .chip.B{background:var(--gradeB)}
+.chip.C{background:#fff;color:var(--gradeC);border:1.5px solid var(--gradeC)}
+.tag{font-family:'IBM Plex Mono',monospace;font-size:9px;font-weight:600;padding:1px 5px;border-radius:3px;letter-spacing:.05em}
+.tag.women{color:var(--women);border:1px solid var(--women)}
+.tag.men{color:var(--men);border:1px solid var(--men)}
+.freq{font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:var(--gradeA);font-weight:500;margin-left:auto;white-space:nowrap}
+.rec-detail{font-size:12.5px;color:var(--ink-soft);margin-top:4px}
+.rec-detail strong{color:var(--ink);font-weight:600}
+.cond{font-size:11.5px;color:var(--warn);margin-top:4px;font-style:italic}
+.empty{padding:26px;text-align:center;color:var(--ink-soft);font-size:13px;background:var(--card);border:1px dashed var(--line);border-radius:10px;margin-top:10px}
+
+.copy-bar{display:flex;justify-content:flex-end;margin:14px 0 -6px}
+.copy-btn{font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:600;letter-spacing:.05em;padding:7px 14px;border-radius:8px;border:1.5px solid var(--gradeA);background:transparent;color:var(--gradeA);cursor:pointer;transition:background .15s,color .15s,border-color .15s}
+.copy-btn:hover{background:var(--gradeA);color:#fff}
+.copy-btn.copied{background:#1d9e63;color:#fff;border-color:#1d9e63}
+.copy-btn:focus-visible{outline:2px solid var(--gradeA);outline-offset:2px}
+
+footer{max-width:880px;margin:30px auto 0;padding:12px 16px;border-top:1px solid var(--line);font-size:10.5px;color:var(--ink-soft)}
+@media print{
+  .panel,.flags{border:none} input,.seg button{border:1px solid #999}
+  body{background:#fff} .rec{break-inside:avoid}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="eyebrow">USPSTF Preventive Services · Patient Screener</div>
+  <h1>Screening Recommendations</h1>
+  <div class="datasource" id="datasource"><span class="dot"></span>Loading dataset…</div>
+</header>
+
+<div class="wrap">
+  <div class="panel">
+    <div class="panel-grid">
+      <div>
+        <label class="field-label" for="age">Patient age</label>
+        <input type="number" id="age" min="0" max="110" value="50" inputmode="numeric">
+      </div>
+      <div>
+        <span class="field-label">Sex</span>
+        <div class="seg" id="sexSeg" role="group" aria-label="Patient sex">
+          <button data-sex="female" class="active">Female</button>
+          <button data-sex="male">Male</button>
+        </div>
+      </div>
+    </div>
+    <details class="flags" open>
+      <summary>Risk factors & status (optional — refines results)</summary>
+      <div class="flag-grid" id="flagGrid">
+        <label data-only="female"><input type="checkbox" id="f_pregnant"> Currently pregnant</label>
+        <label data-only="female"><input type="checkbox" id="f_postmenopausal"> Postmenopausal</label>
+        <label><input type="checkbox" id="f_everSmoked"> Has ever smoked</label>
+        <label><input type="checkbox" id="f_heavySmoker"> ≥20 pack-year history, smokes now or quit &lt;15 yrs ago</label>
+        <label><input type="checkbox" id="f_bmi25"> Overweight or obesity (BMI ≥25)</label>
+        <label><input type="checkbox" id="f_sexuallyActive"> Sexually active</label>
+        <label><input type="checkbox" id="f_stiRisk"> Increased risk for STI / hepatitis B / TB</label>
+        <label><input type="checkbox" id="f_cvdRisk"> ≥1 cardiovascular risk factor (dyslipidemia, diabetes, HTN, smoking)</label>
+        <label data-only="female"><input type="checkbox" id="f_brcaHistory"> Personal/family history suggesting BRCA-related cancer</label>
+      </div>
+    </details>
+  </div>
+
+  <div class="copy-bar" id="copyBar" hidden>
+    <button class="copy-btn" id="copyBtn">&#x2398; Copy recommendations</button>
+  </div>
+  <div class="results" id="results"></div>
+</div>
+
+<footer>
+  <p><strong>Not medical advice.</strong> Summarizes USPSTF recommendations for average-risk screening; read each full recommendation statement and individualize with clinical judgment. Built-in dataset verified June 2026; connect the update script for live data from the Prevention TaskForce API.</p>
+</footer>
+
+<script src="app.js"></script>
+</body>
+</html>

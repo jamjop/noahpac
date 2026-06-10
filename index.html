@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>noahpac · Clinical Reference Tools</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#F5F7F4; --card:#FFFFFF; --ink:#15282B; --ink-soft:#4A5E60;
+  --line:#D8DFDA; --teal:#0E7490; --blue:#365A9B; --green:#1a7a4a;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--paper);color:var(--ink);font-family:'Archivo',sans-serif;font-size:15px;line-height:1.5;min-height:100vh;display:flex;flex-direction:column}
+.wrap{max-width:960px;margin:0 auto;padding:0 24px;width:100%}
+
+header{padding:52px 24px 40px;max-width:960px;margin:0 auto}
+.eyebrow{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--teal);font-weight:600}
+h1{font-size:clamp(30px,5.5vw,46px);font-weight:800;font-stretch:75%;text-transform:uppercase;line-height:1.0;margin:6px 0 12px;letter-spacing:-.01em}
+.tagline{font-size:14.5px;color:var(--ink-soft);max-width:500px;line-height:1.65}
+.tagline strong{color:var(--ink)}
+
+.tools{padding:0 0 64px}
+.section-label{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-soft);font-weight:600;border-bottom:2px solid var(--ink);padding-bottom:6px;margin-bottom:20px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(276px,1fr));gap:16px;margin-bottom:40px}
+
+.tool-card{background:var(--card);border:1.5px solid var(--line);border-radius:14px;padding:22px 22px 18px;text-decoration:none;color:inherit;display:flex;flex-direction:column;gap:10px;transition:border-color .15s,box-shadow .15s;position:relative;overflow:hidden}
+.tool-card:hover{border-color:var(--accent,var(--teal));box-shadow:0 4px 20px rgba(0,0,0,.08)}
+.tool-card:focus-visible{outline:2px solid var(--teal);outline-offset:2px}
+.tool-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--accent,var(--teal));border-radius:14px 14px 0 0}
+.tool-card.c-teal{--accent:var(--teal)}
+.tool-card.c-blue{--accent:var(--blue)}
+.tool-card.c-green{--accent:var(--green)}
+
+.tool-name{font-weight:800;font-stretch:80%;font-size:17px;text-transform:uppercase;letter-spacing:.02em;line-height:1.1}
+.tool-desc{font-size:13px;color:var(--ink-soft);line-height:1.55;flex:1}
+.tool-meta{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-top:4px}
+.chip{font-family:'IBM Plex Mono',monospace;font-size:9.5px;font-weight:600;letter-spacing:.05em;padding:2px 7px;border-radius:3px;background:var(--paper);border:1px solid var(--line);color:var(--ink-soft)}
+.arrow{margin-left:auto;color:var(--ink-soft);font-size:15px;flex-shrink:0}
+
+.disclaimer{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px 18px;margin-bottom:8px}
+.disclaimer p{font-size:12px;color:var(--ink-soft);line-height:1.6}
+.disclaimer strong{color:var(--ink)}
+
+footer{border-top:1px solid var(--line);padding:14px 24px;margin-top:auto}
+footer p{font-size:11px;color:var(--ink-soft);max-width:960px;margin:0 auto}
+
+@media(max-width:600px){
+  header{padding:32px 16px 24px}
+  .wrap,.tools{padding-left:16px;padding-right:16px}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="eyebrow">noahpac · Point-of-care reference</div>
+  <h1>Clinical Tools</h1>
+  <p class="tagline"><strong>Fast, offline-capable</strong> clinical reference. No login, no tracking — all calculations run locally in your browser.</p>
+</header>
+
+<div class="wrap tools">
+
+  <div class="section-label">Screening &amp; Preventive Care</div>
+  <div class="grid">
+
+    <a class="tool-card c-teal" href="/screener/">
+      <div class="tool-name">USPSTF Screener</div>
+      <div class="tool-desc">Age + sex + risk factors → applicable USPSTF Grade A/B/C recommendations. Covers the full schedule including 2024 breast cancer and 2025 cervical updates. Risk-factor checkboxes promote conditional screenings (lung LDCT, AAA, osteoporosis) into the recommended list.</div>
+      <div class="tool-meta">
+        <span class="chip">USPSTF 2026</span>
+        <span class="chip">Ages 3–110</span>
+        <span class="arrow">→</span>
+      </div>
+    </a>
+
+    <a class="tool-card c-green" href="/vaccines/">
+      <div class="tool-name">Immunization Schedule</div>
+      <div class="tool-desc">Age + conditions → vaccines due now. Full ACIP schedule birth through adult with catch-up logic. Conditions including pregnancy, immunocompromised status, asplenia, and chronic organ disease surface additional indicated vaccines.</div>
+      <div class="tool-meta">
+        <span class="chip">ACIP 2025</span>
+        <span class="chip">Birth – 90 yr</span>
+        <span class="arrow">→</span>
+      </div>
+    </a>
+
+  </div>
+
+  <div class="section-label">Clinical Calculators</div>
+  <div class="grid">
+
+    <a class="tool-card c-blue" href="/calculators/">
+      <div class="tool-name">Medical Calculators</div>
+      <div class="tool-desc">Eight calculators with live results: ASCVD 10-yr risk (PCE), CHA₂DS₂-VASc, Wells DVT &amp; PE / PERC, CURB-65, creatinine clearance (Cockcroft-Gault), corrected calcium, anion gap + delta ratio, and MELD / MELD-Na.</div>
+      <div class="tool-meta">
+        <span class="chip">8 calculators</span>
+        <span class="chip">Live results</span>
+        <span class="arrow">→</span>
+      </div>
+    </a>
+
+  </div>
+
+  <div class="disclaimer">
+    <p><strong>Not medical advice.</strong> These tools summarize published guidelines and validated scoring systems for reference use only. Always apply clinical judgment, read primary sources, and individualize care. Verify calculator results before guiding treatment decisions.</p>
+  </div>
+
+</div>
+
+<footer>
+  <p>noahpac.com · Clinical reference tools · All calculations run client-side · No data leaves your browser</p>
+</footer>
+
+</body>
+</html>
