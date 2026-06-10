@@ -6,51 +6,39 @@
 <title>noahpac · Clinical Reference Tools</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/shared.css">
 <style>
-:root{
-  --bg:#EEF2FF; --surface:#FFFFFF; --ink:#1E293B; --ink-soft:#64748B;
-  --ink-muted:#94A3B8; --line:#E2E8F0; --purple:#7C3AED;
-  --purple-soft:#EDE9FE; --purple-mid:#C4B5FD; --teal:#06B6D4;
-  --ok:#10B981; --warn:#F59E0B; --risk:#EF4444;
-  --grad:linear-gradient(135deg,#06B6D4 0%,#7C3AED 100%);
-  --sh:0 4px 20px rgba(30,41,59,.07),0 1px 4px rgba(30,41,59,.04);
-  --sh-lg:0 12px 40px rgba(30,41,59,.11),0 4px 12px rgba(30,41,59,.06);
-  --r:18px; --r-sm:10px;
-}
-*{margin:0;padding:0;box-sizing:border-box}
-body{background:var(--bg);color:var(--ink);font-family:'Archivo',sans-serif;font-size:15px;line-height:1.5;min-height:100vh;display:flex;flex-direction:column}
+body{font-size:15px;line-height:1.5;display:flex;flex-direction:column}
 .wrap{max-width:960px;margin:0 auto;padding:0 24px;width:100%}
-
-header{padding:52px 24px 36px;max-width:960px;margin:0 auto}
-.eyebrow{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--purple);font-weight:600}
-h1{font-size:clamp(28px,5vw,42px);font-weight:800;line-height:1.1;margin:6px 0 10px}
-.tagline{font-size:14.5px;color:var(--ink-soft);max-width:500px;line-height:1.65}
-.tagline strong{color:var(--ink)}
+.header-inner{max-width:960px;margin:0 auto;padding:52px 24px 44px}
+.eyebrow{font-size:11px;letter-spacing:.16em;color:rgba(255,255,255,.6)}
+h1{font-size:clamp(28px,5vw,42px);margin:6px 0 10px;color:#fff}
+.tagline{font-size:14.5px;color:rgba(255,255,255,.75);max-width:500px;line-height:1.65}
+.tagline strong{color:#fff}
 
 .tools{padding:0 0 64px}
-.section-label{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-muted);font-weight:600;margin-bottom:16px;display:flex;align-items:center;gap:10px}
+.section-label{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-muted);font-weight:600;margin-bottom:16px;display:flex;align-items:center;gap:12px}
 .section-label::after{content:'';flex:1;height:1px;background:var(--line)}
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px;margin-bottom:36px}
 
-.tool-card{background:var(--surface);border-radius:var(--r);padding:24px 22px 18px;text-decoration:none;color:inherit;display:flex;flex-direction:column;gap:10px;box-shadow:var(--sh);transition:transform .2s ease,box-shadow .2s ease;position:relative;overflow:hidden}
-.tool-card:hover{transform:translateY(-3px);box-shadow:var(--sh-lg)}
+.tool-card{background:var(--surface);border-radius:var(--r);padding:24px 22px 18px;text-decoration:none;color:inherit;display:flex;flex-direction:column;gap:10px;box-shadow:var(--sh);transition:transform .2s ease,box-shadow .2s ease;position:relative;overflow:hidden;border-left:3px solid var(--bar,var(--purple))}
+.tool-card:hover{transform:translateY(-2px);box-shadow:var(--sh-lg)}
 .tool-card:focus-visible{outline:2px solid var(--purple);outline-offset:2px}
-.tool-card::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:var(--bar,var(--grad));border-radius:var(--r) var(--r) 0 0}
-.tool-card.c-teal{--bar:linear-gradient(90deg,#22D3EE,#0EA5E9)}
-.tool-card.c-blue{--bar:linear-gradient(90deg,#7C3AED,#6D28D9)}
-.tool-card.c-green{--bar:linear-gradient(90deg,#34D399,#10B981)}
-.tool-card.c-red{--bar:linear-gradient(90deg,#F87171,#EF4444)}
-.tool-card.c-crimson{--bar:linear-gradient(90deg,#F87171,#DC2626)}
-.tool-card.c-indigo{--bar:linear-gradient(90deg,#818CF8,#6366F1)}
-.tool-card.c-violet{--bar:linear-gradient(90deg,#A78BFA,#7C3AED)}
-.tool-card.c-rose{--bar:linear-gradient(90deg,#FB7185,#F43F5E)}
+.tool-card.c-teal{--bar:#0891B2}
+.tool-card.c-blue{--bar:#1B2E6B}
+.tool-card.c-green{--bar:#1A8A5A}
+.tool-card.c-red{--bar:#C53030}
+.tool-card.c-crimson{--bar:#991B1B}
+.tool-card.c-indigo{--bar:#3730A3}
+.tool-card.c-violet{--bar:#1B2E6B}
+.tool-card.c-rose{--bar:#BE185D}
 
-.tool-name{font-weight:800;font-size:16px;letter-spacing:.01em;line-height:1.2}
+.tool-name{font-weight:800;font-size:16px;letter-spacing:.01em;line-height:1.2;color:var(--ink)}
 .tool-desc{font-size:13px;color:var(--ink-soft);line-height:1.6;flex:1}
 .tool-meta{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-top:4px}
-.chip{font-family:'IBM Plex Mono',monospace;font-size:9.5px;font-weight:600;letter-spacing:.04em;padding:3px 9px;border-radius:50px;background:var(--purple-soft);color:var(--purple)}
-.chip.green{background:#D1FAE5;color:#065F46}
-.chip.red{background:#FEE2E2;color:#991B1B}
+.chip{font-family:'IBM Plex Mono',monospace;font-size:9.5px;font-weight:600;letter-spacing:.04em;padding:3px 9px;border-radius:4px;background:var(--purple-soft);color:var(--purple)}
+.chip.green{background:#E3F5EC;color:#1A8A5A}
+.chip.red{background:#FDE8E8;color:#991B1B}
 .arrow{margin-left:auto;color:var(--purple-mid);font-size:16px;flex-shrink:0;transition:color .15s}
 .tool-card:hover .arrow{color:var(--purple)}
 
@@ -62,7 +50,6 @@ footer{border-top:1px solid var(--line);padding:14px 24px;margin-top:auto}
 footer p{font-size:11px;color:var(--ink-muted);max-width:960px;margin:0 auto}
 
 @media(max-width:600px){
-  header{padding:32px 16px 24px}
   .wrap,.tools{padding-left:16px;padding-right:16px}
 }
 </style>
@@ -70,9 +57,11 @@ footer p{font-size:11px;color:var(--ink-muted);max-width:960px;margin:0 auto}
 <body>
 
 <header>
-  <div class="eyebrow">noahpac · Point-of-care reference</div>
-  <h1>Clinical Reference Tools</h1>
-  <p class="tagline"><strong>Fast, offline-capable</strong> clinical reference. No login, no tracking — all calculations run locally in your browser.</p>
+  <div class="header-inner">
+    <div class="eyebrow">noahpac · Point-of-care reference</div>
+    <h1>Clinical Reference Tools</h1>
+    <p class="tagline"><strong>Fast, offline-capable</strong> clinical reference. No login, no tracking — all calculations run locally in your browser.</p>
+  </div>
 </header>
 
 <div class="wrap tools">
