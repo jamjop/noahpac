@@ -41,6 +41,9 @@ h1{font-size:clamp(28px,5vw,42px);font-weight:800;line-height:1.1;margin:6px 0 1
 .tool-card.c-green{--bar:linear-gradient(90deg,#34D399,#10B981)}
 .tool-card.c-red{--bar:linear-gradient(90deg,#F87171,#EF4444)}
 .tool-card.c-crimson{--bar:linear-gradient(90deg,#F87171,#DC2626)}
+.tool-card.c-indigo{--bar:linear-gradient(90deg,#818CF8,#6366F1)}
+.tool-card.c-violet{--bar:linear-gradient(90deg,#A78BFA,#7C3AED)}
+.tool-card.c-rose{--bar:linear-gradient(90deg,#FB7185,#F43F5E)}
 
 .tool-name{font-weight:800;font-size:16px;letter-spacing:.01em;line-height:1.2}
 .tool-desc{font-size:13px;color:var(--ink-soft);line-height:1.6;flex:1}
@@ -133,6 +136,42 @@ footer p{font-size:11px;color:var(--ink-muted);max-width:960px;margin:0 auto}
       <div class="tool-meta">
         <span class="chip">CoTCCC 2023</span>
         <span class="chip">PWA · Offline</span>
+        <span class="arrow">→</span>
+      </div>
+    </a>
+
+  </div>
+
+  <div class="section-label">Drug &amp; Code Reference</div>
+  <div class="grid">
+
+    <a class="tool-card c-indigo" href="/lookup/">
+      <div class="tool-name">Code &amp; Drug Lookup</div>
+      <div class="tool-desc">Live typeahead search for ICD-10 diagnoses, RxTerms drug names, and LOINC lab codes via the NLM Clinical Tables API. Copy codes directly or jump to the full drug label. No API key required.</div>
+      <div class="tool-meta">
+        <span class="chip">ICD-10</span>
+        <span class="chip">RxTerms</span>
+        <span class="chip">LOINC</span>
+        <span class="arrow">→</span>
+      </div>
+    </a>
+
+    <a class="tool-card c-violet" href="/drugref/">
+      <div class="tool-name">Drug Reference</div>
+      <div class="tool-desc">Pull FDA structured label data on demand — dosing, contraindications, boxed warnings, adverse reactions, drug interactions, and recent recalls. Powered by the openFDA Drug Label and Enforcement APIs. No API key required.</div>
+      <div class="tool-meta">
+        <span class="chip">openFDA</span>
+        <span class="chip">Recalls</span>
+        <span class="arrow">→</span>
+      </div>
+    </a>
+
+    <a class="tool-card c-rose" href="/peds/">
+      <div class="tool-name">Pediatric Dosing</div>
+      <div class="tool-desc">Enter weight or age to generate a full Broselow-style dosing card: equipment sizes, fluid volumes, resuscitation drugs, RSI agents, seizure medications, antibiotics, and more — all calculated for the patient in front of you.</div>
+      <div class="tool-meta">
+        <span class="chip">Weight-based</span>
+        <span class="chip">Broselow</span>
         <span class="arrow">→</span>
       </div>
     </a>
