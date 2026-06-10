@@ -10,6 +10,7 @@
 :root{
   --paper:#F5F7F4; --card:#FFFFFF; --ink:#15282B; --ink-soft:#4A5E60;
   --line:#D8DFDA; --teal:#0E7490; --blue:#365A9B; --green:#1a7a4a;
+  --red:#b0340d; --crimson:#9b1c1c;
 }
 *{margin:0;padding:0;box-sizing:border-box}
 body{background:var(--paper);color:var(--ink);font-family:'Archivo',sans-serif;font-size:15px;line-height:1.5;min-height:100vh;display:flex;flex-direction:column}
@@ -32,6 +33,8 @@ h1{font-size:clamp(30px,5.5vw,46px);font-weight:800;font-stretch:75%;text-transf
 .tool-card.c-teal{--accent:var(--teal)}
 .tool-card.c-blue{--accent:var(--blue)}
 .tool-card.c-green{--accent:var(--green)}
+.tool-card.c-red{--accent:var(--red)}
+.tool-card.c-crimson{--accent:var(--crimson)}
 
 .tool-name{font-weight:800;font-stretch:80%;font-size:17px;text-transform:uppercase;letter-spacing:.02em;line-height:1.1}
 .tool-desc{font-size:13px;color:var(--ink-soft);line-height:1.55;flex:1}
@@ -96,6 +99,31 @@ footer p{font-size:11px;color:var(--ink-soft);max-width:960px;margin:0 auto}
       <div class="tool-meta">
         <span class="chip">8 calculators</span>
         <span class="chip">Live results</span>
+        <span class="arrow">→</span>
+      </div>
+    </a>
+
+    <a class="tool-card c-crimson" href="/sti/">
+      <div class="tool-name">STI Treatment</div>
+      <div class="tool-desc">CDC 2021 treatment guidelines distilled to organism → first-line regimen with pregnancy and allergy alternatives. Covers bacterial, viral, vaginal, pelvic, and ectoparasite conditions. Manually curated dataset — no API dependency.</div>
+      <div class="tool-meta">
+        <span class="chip">CDC 2021</span>
+        <span class="chip">21 conditions</span>
+        <span class="arrow">→</span>
+      </div>
+    </a>
+
+  </div>
+
+  <div class="section-label">Field Medicine</div>
+  <div class="grid">
+
+    <a class="tool-card c-red" href="/tccc/">
+      <div class="tool-name">TCCC / MARCH PAWS</div>
+      <div class="tool-desc">CoTCCC 2023 field reference — hemorrhage control sequences, TQ conversion timelines, and drug cards for ketamine, TXA, ertapenem, and more. Full MARCH PAWS protocol with Care Under Fire and Tactical Field Care phases. <strong>Offline-capable PWA</strong> — add to home screen to use without data.</div>
+      <div class="tool-meta">
+        <span class="chip">CoTCCC 2023</span>
+        <span class="chip">PWA · Offline</span>
         <span class="arrow">→</span>
       </div>
     </a>
