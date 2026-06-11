@@ -25,6 +25,8 @@ h1{font-size:clamp(26px,4.5vw,38px);margin:5px 0 12px;color:#fff;letter-spacing:
 .tool-card.c-indigo{--bar:#3730A3}
 .tool-card.c-violet{--bar:#2563EB}
 .tool-card.c-rose{--bar:#BE185D}
+.tool-card.c-amber{--bar:#D97706}
+.tool-card.c-slate{--bar:#475569}
 
 .tool-name{font-weight:800;font-size:15px;letter-spacing:.01em;line-height:1.25;color:var(--ink);margin-bottom:8px;display:flex;align-items:center;gap:8px}
 .tool-name::before{content:'';width:7px;height:7px;border-radius:2px;background:var(--bar,var(--purple));flex-shrink:0}
