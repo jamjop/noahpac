@@ -477,7 +477,3 @@ function copyRegimen() {
 }
 
 buildNav();
-const _stiNav = document.getElementById('tabNav');
-if(_stiNav) _stiNav.addEventListener('wheel', e => {
-  if(e.deltaY !== 0){ e.preventDefault(); _stiNav.scrollLeft += e.deltaY; }
-}, {passive:false});

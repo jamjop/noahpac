@@ -240,21 +240,21 @@ let searchQuery = '';
 function buildCatFilters() {
   const wrap = document.getElementById('catFilters');
   const allBtn = document.createElement('button');
-  allBtn.className = 'cat-btn active';
+  allBtn.className = 'tab-btn active';
   allBtn.textContent = 'All';
   allBtn.dataset.cat = 'all';
   wrap.appendChild(allBtn);
   for (const c of CATS) {
     const btn = document.createElement('button');
-    btn.className = 'cat-btn';
+    btn.className = 'tab-btn';
     btn.textContent = c.label;
     btn.dataset.cat = c.id;
     wrap.appendChild(btn);
   }
   wrap.addEventListener('click', e => {
-    const btn = e.target.closest('.cat-btn');
+    const btn = e.target.closest('.tab-btn');
     if (!btn) return;
-    wrap.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
+    wrap.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
     activeCat = btn.dataset.cat;
     render();

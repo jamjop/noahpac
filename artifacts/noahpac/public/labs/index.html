@@ -10,25 +10,22 @@
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<header class="app-header">
-  <div class="header-inner">
-    <div>
-      <a class="back" href="/">← Clinical Reference Tools</a>
-      <div class="eyebrow">Adult Reference Ranges</div>
-      <h1>Lab Reference</h1>
+<div>
+  <header class="app-header">
+    <div class="header-inner">
+      <div>
+        <div class="eyebrow">Adult Reference Ranges</div>
+        <h1>Lab Reference</h1>
+        <a href="/" class="back" target="_top">← noahpac</a>
+      </div>
+      <input type="search" id="labSearch" class="tab-search" placeholder="Search tests…" autocomplete="off" spellcheck="false">
     </div>
-    <input type="search" id="labSearch" class="tab-search" placeholder="Search tests…" autocomplete="off" spellcheck="false">
-  </div>
-</header>
-
-<div class="controls">
-  <div class="controls-inner">
-    <div class="cat-filters" id="catFilters"></div>
+  </header>
+  <div class="page-body">
+    <nav class="cat-nav" id="catFilters"></nav>
+    <div class="content" id="labContent"></div>
   </div>
 </div>
-
-<div class="content" id="labContent"></div>
-
 <script src="app.js"></script>
 </body>
 </html>

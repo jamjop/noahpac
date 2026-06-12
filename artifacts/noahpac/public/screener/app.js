@@ -110,11 +110,12 @@ function render() {
   let html = "";
   const recRow = (r, condText) => `
     <div class="rec">
-      <div class="rec-title">${esc(r.name)}
-        ${r.sex==="female"?'<span class="tag women">W</span>':r.sex==="male"?'<span class="tag men">M</span>':""}
+      <div class="rec-title">
         <span class="chip ${esc(r.grade)}">${esc(r.grade)}</span>
-        ${r.freq?`<span class="freq">${esc(r.freq)}</span>`:""}
+        ${r.sex==="female"?'<span class="tag women">W</span>':r.sex==="male"?'<span class="tag men">M</span>':""}
+        <span class="rec-name">${esc(r.name)}</span>
       </div>
+      ${r.freq?`<div class="freq">${esc(r.freq)}</div>`:""}
       <div class="rec-detail">${esc(r.detail||"")}</div>
       ${condText?`<div class="cond">Applies if: ${esc(condText)}</div>`:""}
     </div>`;
@@ -189,7 +190,6 @@ function buildText() {
       if (r.sex === "female") row += "  (W)";
       if (r.sex === "male")   row += "  (M)";
       lines.push(row);
-      if (r.detail) lines.push(`  ${r.detail}`);
       if (condFn) lines.push(`  Applies if: ${condFn(item)}`);
       lines.push("");
     }

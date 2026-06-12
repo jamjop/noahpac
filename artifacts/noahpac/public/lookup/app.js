@@ -15,7 +15,7 @@ let ctrl = null;
 // ── NLM fetch helpers ─────────────────────────────────────────────────────────
 
 async function fetchICD(q, signal) {
-  const url = `https://clinicaltables.nlm.nih.gov/api/icd10cm/v3/search?terms=${encodeURIComponent(q)}&maxList=20&df=code,name`;
+  const url = `https://clinicaltables.nlm.nih.gov/api/icd10cm/v3/search?terms=${encodeURIComponent(q)}&maxList=20&sf=code,name&df=code,name`;
   const r = await fetch(url, {signal}).then(r => r.json());
   return {type:'icd', total:r[0]||0, items:(r[3]||[]).map(([code,name]) => ({code,name}))};
 }
@@ -30,7 +30,7 @@ async function fetchDrug(q, signal) {
 }
 
 async function fetchLOINC(q, signal) {
-  const url = `https://clinicaltables.nlm.nih.gov/api/loinc_items/v3/search?terms=${encodeURIComponent(q)}&maxList=20&df=LOINC_NUM,LONG_COMMON_NAME,CLASS`;
+  const url = `https://clinicaltables.nlm.nih.gov/api/loinc_items/v3/search?terms=${encodeURIComponent(q)}&maxList=20&sf=LOINC_NUM,LONG_COMMON_NAME&df=LOINC_NUM,LONG_COMMON_NAME,CLASS`;
   const r = await fetch(url, {signal}).then(r => r.json());
   return {type:'loinc', total:r[0]||0, items:(r[3]||[]).map(([code,name,cls]) => ({code,name,cls:cls||''}))};
 }

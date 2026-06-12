@@ -343,7 +343,3 @@ function copyDdx(lab) {
 
 buildNav();
 document.getElementById('ddxSearch').addEventListener('input', buildNav);
-const _ddxNav = document.getElementById('tabNav');
-if(_ddxNav) _ddxNav.addEventListener('wheel', e => {
-  if(e.deltaY !== 0){ e.preventDefault(); _ddxNav.scrollLeft += e.deltaY; }
-}, {passive:false});

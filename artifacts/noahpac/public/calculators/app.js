@@ -916,7 +916,3 @@ CALCS.forEach(c=>{
 });
 showCalc(CALCS[0].id);
 
-/* Wheel-to-scroll for tab nav on non-trackpad desktops */
-tabNav.addEventListener('wheel', e => {
-  if(e.deltaY !== 0){ e.preventDefault(); tabNav.scrollLeft += e.deltaY; }
-}, {passive:false});

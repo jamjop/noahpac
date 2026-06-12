@@ -502,8 +502,4 @@ function copyRegimen() {
 }
 
 document.getElementById('abxSearch').addEventListener('input', buildNav);
-const _abxNav = document.getElementById('tabNav');
-if(_abxNav) _abxNav.addEventListener('wheel', e => {
-  if(e.deltaY !== 0){ e.preventDefault(); _abxNav.scrollLeft += e.deltaY; }
-}, {passive:false});
 buildNav();
