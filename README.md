@@ -17,6 +17,7 @@ Point-of-care clinical reference for Noah PA-C. Preventive screenings, calculato
 | `/lookup` | Code & Drug Lookup (NLM) |
 | `/drugref` | Drug Reference (openFDA) |
 | `/peds` | Pediatric Dosing |
+| `/labdiff` | Lab Differentials (DDx) |
 
 ## Stack
 

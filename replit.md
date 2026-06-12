@@ -42,8 +42,7 @@ All tools are vanilla HTML/CSS/JS served as static files from `public/`, rendere
 | `/lookup` | `public/lookup/` | Code & Drug Lookup |
 | `/drugref` | `public/drugref/` | Drug Reference |
 | `/peds` | `public/peds/` | Pediatric Dosing |
-
-**Lab Differentials** (`/labdiff`) — repo was empty at migration time; card present on landing page, tool pending.
+| `/labdiff` | `public/labdiff/` | Lab Differentials (DDx) |
 
 ## Architecture decisions
 
