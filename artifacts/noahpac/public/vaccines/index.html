@@ -23,14 +23,14 @@
   <div class="panel">
     <div class="panel-grid">
       <div>
-        <div class="age-label-row">
-          <label class="field-label" for="age">Patient age</label>
+        <label class="field-label" for="age">Patient age</label>
+        <div class="age-input-row">
+          <input type="number" id="age" min="0" max="999" value="2" inputmode="numeric">
           <div class="unit-toggle">
             <button id="unitYr" class="active">yr</button>
             <button id="unitMo">mo</button>
           </div>
         </div>
-        <input type="number" id="age" min="0" max="999" value="2" inputmode="numeric">
       </div>
       <div>
         <span class="field-label">Sex</span>
