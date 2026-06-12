@@ -15,7 +15,7 @@ const tools = [
   { path: "/lookup",      src: "/lookup/index.html",     title: "Code & Drug Lookup" },
   { path: "/drugref",     src: "/drugref/index.html",    title: "Drug Reference" },
   { path: "/peds",        src: "/peds/index.html",       title: "Pediatric Dosing" },
-  { path: "/labdiff",     src: "/labdiff/index.html",    title: "Lab Differentials" },
+  { path: "/ddx",         src: "/ddx/index.html",        title: "Lab Differentials" },
 ];
 
 function Router() {
