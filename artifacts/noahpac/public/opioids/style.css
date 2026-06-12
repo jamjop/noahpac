@@ -1,5 +1,4 @@
-.app-header .header-inner{padding:28px 24px 24px;max-width:800px;margin:0 auto}
-h1{font-size:clamp(20px,4vw,26px);margin:5px 0 4px}
+.app-header .header-inner{padding:22px 16px 18px;max-width:880px;margin:0 auto}
 
 .content{max-width:800px;margin:0 auto;padding:28px 24px 64px}
 @media(max-width:600px){.content{padding:16px 16px 48px}}

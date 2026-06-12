@@ -1,8 +1,8 @@
-const CACHE = 'tccc-v1';
+const CACHE = 'tccc-v2';
 const ASSETS = [
   '/tccc/',
   '/tccc/index.html',
-  '/tccc/app.js',
+  '/tccc/app.js?v=2',
   '/tccc/manifest.json',
   '/tccc/icon.svg',
 ];
