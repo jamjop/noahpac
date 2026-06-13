@@ -23,6 +23,10 @@
   <div class="panel">
     <div class="panel-row">
       <div>
+        <label class="field-label">Local susceptibility data</label>
+        <select id="fac-sel" class="fac-sel"></select>
+      </div>
+      <div>
         <label class="field-label">Infection site</label>
         <div class="seg" id="seg-site" role="group"></div>
       </div>
@@ -38,7 +42,7 @@
 </div>
 
 <footer>
-  <p>Empiric regimens from IDSA/Surviving Sepsis guidelines. Susceptibility data: Trinity Hospital Minot CY 2022 (ND HHS). Local rates shown where organism is selected; use clinical judgment — individualize based on culture results, allergies, renal function, and severity. <strong>Not medical advice.</strong></p>
+  <p>Empiric regimens from IDSA/Surviving Sepsis guidelines. Susceptibility data sourced from ND HHS Antibiogram Archive (Trinity CY 2022; Sanford, Altru, CHI 2024). Local rates shown when an organism is selected; percentages reflect primary antibiotic for that regimen where available. Individualize therapy based on culture results, allergies, renal function, and severity. <strong>Not medical advice.</strong></p>
 </footer>
 
 <script src="app.js"></script>

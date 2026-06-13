@@ -1,22 +1,66 @@
-// Local susceptibility data (Trinity Hospital Minot CY 2022)
-const LOCAL_SUSC = {
-  "E. coli":               {amp:64,ams:68,ptz:100,cfz:93,cfx:97,cxm:93,ctx:95,cro:95,caz:96,fep:96,mem:100,gen:94,tob:97,cip:"nr",lvx:"nr",sxt:84,nit:98},
-  "Klebsiella pneumoniae": {ptz:98,cfz:97,cfx:96,cxm:94,ctx:97,cro:97,caz:98,fep:98,mem:100,gen:99,tob:99,sxt:94,nit:48},
-  "Proteus mirabilis":     {amp:89,ptz:95,cfz:100,cfx:93,cxm:99,ctx:97,cro:99,caz:98,fep:100,mem:99,gen:95,sxt:86},
-  "Pseudomonas aeruginosa":{ptz:96,caz:96,fep:96,mem:98,gen:87,tob:99},
-  "Staph aureus (MSSA)":   {oxa:100,ams:100,gen:99,cip:89,lvx:90,van:100,tet:94,cli:81,azi:69,sxt:100,rif:100,dap:100,lzd:100,nit:100},
-  "Staph aureus (MRSA)":   {oxa:0,ams:0,mem:98,gen:"nr",cip:32,lvx:35,van:100,tet:96,cli:80,sxt:98,rif:99,dap:99,lzd:100,nit:93},
-  "Enterococcus faecalis": {amp:100,cip:84,lvx:89,van:100,tet:31,sxt:50,rif:100,dap:100,nit:100},
-  "Streptococcus pneumoniae":{pen:93,ctx:100,cro:100,mem:89,lvx:97,van:100,tet:76,cli:86,azi:75,sxt:79},
+// Local susceptibility data — keyed by facility id → organism → antibiotic
+const FACILITY_SUSC = {
+  trinity: {
+    label: "Trinity Hospital — Minot, ND (CY 2022)",
+    data: {
+      "E. coli":               {amp:64,ams:68,ptz:100,cfz:93,cfx:97,cxm:93,cro:95,caz:96,fep:96,mem:100,gen:94,tob:97,cip:"nr",lvx:"nr",sxt:84,nit:98},
+      "Klebsiella pneumoniae": {ptz:98,cfz:97,cfx:96,cxm:94,cro:97,caz:98,fep:98,mem:100,gen:99,tob:99,sxt:94,nit:48},
+      "Proteus mirabilis":     {amp:89,ptz:95,cfz:100,cfx:93,cxm:99,cro:99,caz:98,fep:100,mem:99,gen:95,sxt:86},
+      "Pseudomonas aeruginosa":{ptz:96,caz:96,fep:96,mem:98,gen:87,tob:99},
+      "Staph aureus (MSSA)":   {oxa:100,ams:100,gen:99,cip:89,lvx:90,van:100,tet:94,cli:81,azi:69,sxt:100,rif:100,dap:100,lzd:100,nit:100},
+      "Staph aureus (MRSA)":   {oxa:0,ams:0,mem:98,gen:"nr",cip:32,lvx:35,van:100,tet:96,cli:80,sxt:98,rif:99,dap:99,lzd:100,nit:93},
+      "Enterococcus faecalis": {amp:100,cip:84,lvx:89,van:100,tet:31,sxt:50,rif:100,dap:100,nit:100},
+      "Streptococcus pneumoniae":{pen:93,cro:100,mem:89,lvx:97,van:100,tet:76,cli:86,azi:75,sxt:79},
+    }
+  },
+  sanford_bismarck: {
+    label: "Sanford Health — Bismarck, ND (2024)",
+    data: {
+      "E. coli":               {amp:62,ptz:97,cfz:94,fep:99,caz:98,cro:95,mem:100,cip:85,lvx:81,gen:94,tob:95,nit:98,sxt:83},
+      "Klebsiella pneumoniae": {ptz:94,cfz:96,fep:99,caz:98,cro:96,mem:99,cip:95,lvx:92,gen:98,tob:98,nit:34,sxt:95},
+      "Proteus mirabilis":     {amp:88,ptz:100,cfz:95,fep:100,caz:100,cro:99,mem:100,cip:84,lvx:84,gen:98,tob:98,sxt:90},
+      "Pseudomonas aeruginosa":{ptz:90,fep:97,caz:95,mem:93,cip:88,lvx:80,tob:97},
+      "Staph aureus (MSSA)":   {oxa:100,cli:96,ery:69,nit:100,tet:93,sxt:98,lzd:100,van:100},
+      "Staph aureus (MRSA)":   {oxa:0,cli:87,ery:17,nit:100,tet:90,sxt:92,lzd:99,van:100},
+      "Enterococcus faecalis": {amp:100,cip:88,lvx:88,nit:100,lzd:97,van:100},
+      "Streptococcus pneumoniae":{pen:100,cro:100,lvx:100,cli:97,ery:78,tet:95,sxt:95,lzd:100,van:100},
+    }
+  },
+  altru: {
+    label: "Altru Health System — Grand Forks, ND (2024)",
+    data: {
+      "E. coli":               {amp:63,ams:72,ptz:95,cfz:93,cro:95,fep:97,mem:100,cip:79,gen:94,sxt:84,nit:97},
+      "Klebsiella pneumoniae": {ams:89,ptz:95,cfz:94,cro:97,fep:96,mem:99,cip:92,gen:98,sxt:94,nit:34},
+      "Proteus mirabilis":     {amp:86,ams:93,ptz:98,cfz:96,cro:99,fep:100,mem:99,cip:87,gen:93,sxt:89,nit:"nr"},
+      "Pseudomonas aeruginosa":{ptz:89,fep:93,mem:93,cip:87,gen:99},
+      "Staph aureus (MSSA)":   {oxa:75,ery:93,sxt:81,cli:93,dox:100,van:100,lzd:100},
+      "Staph aureus (MRSA)":   {ery:86,sxt:80,cli:91,dox:100,van:100,lzd:100},
+      "Enterococcus faecalis": {amp:100,van:99,lzd:98,dap:100,nit:100},
+      "Streptococcus pneumoniae":{pen:97,cro:96,ery:65,cli:96,dox:75,van:100},
+    }
+  },
+  chi_bismarck: {
+    label: "CHI St. Alexius Health — Bismarck, ND (2024)",
+    data: {
+      "E. coli":               {ptz:50,cfz:96,cro:91,caz:93,fep:99,mem:100,tob:95,lvx:77,cip:79,sxt:80,nit:98},
+      "Klebsiella pneumoniae": {ptz:100,cfz:91,cro:85,caz:87,fep:89,mem:99,tob:94,lvx:84,cip:84,sxt:86},
+      "Proteus mirabilis":     {cfz:100,cro:98,caz:98,fep:100,mem:100,tob:100,lvx:75,cip:75,sxt:90},
+      "Pseudomonas aeruginosa":{ptz:91,caz:92,fep:97,mem:89,tob:97,lvx:76,cip:84},
+      "Staph aureus (MSSA)":   {oxa:100,gen:100,lvx:92,van:100,cli:87,sxt:99,dox:100,nit:100},
+      "Staph aureus (MRSA)":   {gen:100,lvx:31,van:100,cli:73,sxt:95,dox:95,nit:100},
+      "Enterococcus faecalis": {amp:100,gen:80,lvx:85,cip:85,van:100,nit:100},
+      "Streptococcus pneumoniae":{pen:96,cro:96,lvx:100,sxt:80,dox:58},
+    }
+  },
 };
 
 const ABX_NAME = {
   amp:"Ampicillin",ams:"Amp/Sulbactam",ptz:"Pip/Tazo",cfz:"Cefazolin",cfx:"Cefoxitin",
-  cxm:"Cefuroxime",ctx:"Cefotaxime",cro:"Ceftriaxone",caz:"Ceftazidime",fep:"Cefepime",
+  cxm:"Cefuroxime",cro:"Ceftriaxone",caz:"Ceftazidime",fep:"Cefepime",
   mem:"Meropenem",gen:"Gentamicin",tob:"Tobramycin",cip:"Ciprofloxacin",lvx:"Levofloxacin",
-  van:"Vancomycin",tet:"Tetracycline",cli:"Clindamycin",azi:"Azithromycin",sxt:"TMP/SMX",
-  rif:"Rifampin",dap:"Daptomycin",lzd:"Linezolid",nit:"Nitrofurantoin",oxa:"Oxacillin",
-  pen:"Penicillin G"
+  van:"Vancomycin",tet:"Tetracycline",dox:"Doxycycline",cli:"Clindamycin",ery:"Erythromycin",
+  azi:"Azithromycin",sxt:"TMP/SMX",rif:"Rifampin",dap:"Daptomycin",lzd:"Linezolid",
+  nit:"Nitrofurantoin",oxa:"Oxacillin",pen:"Penicillin G",
 };
 
 const SITES = [
@@ -96,10 +140,9 @@ const SITES = [
   },
 ];
 
-const ALL_ORGS = [...new Set(SITES.flatMap(s => s.orgs))];
-
-let selectedSite = SITES[0].id;
-let selectedOrg  = null;
+let selectedSite     = SITES[0].id;
+let selectedOrg      = null;
+let selectedFacility = "trinity";
 
 function suscCell(val) {
   if (val === null || val === undefined) return "";
@@ -108,10 +151,17 @@ function suscCell(val) {
   return `<span class="${cls}">${val}%</span>`;
 }
 
-function render() {
-  const site = SITES.find(s => s.id === selectedSite);
+function getSusc(org, abxKey) {
+  const data = FACILITY_SUSC[selectedFacility]?.data?.[org];
+  if (!data) return undefined;
+  return data[abxKey] !== undefined ? data[abxKey] : undefined;
+}
 
-  // Update org buttons to only show relevant orgs
+function render() {
+  const site    = SITES.find(s => s.id === selectedSite);
+  const facInfo = FACILITY_SUSC[selectedFacility];
+
+  // Org buttons
   const orgSeg = document.getElementById("seg-org");
   orgSeg.innerHTML = `<button class="seg-btn${!selectedOrg?" active":""}" data-org="">Any / unknown</button>` +
     site.orgs.map(o => `<button class="seg-btn${o===selectedOrg?" active":""}" data-org="${o}">${o}</button>`).join("");
@@ -120,26 +170,33 @@ function render() {
     render();
   }));
 
-  const susc = selectedOrg ? LOCAL_SUSC[selectedOrg] : null;
+  const orgData = selectedOrg ? facInfo?.data?.[selectedOrg] : null;
 
   const rows = site.regimens.map(r => {
-    const localRate = (susc && r.abx && susc[r.abx] !== undefined) ? suscCell(susc[r.abx]) : "";
-    const localCol  = localRate ? `<td class="susc-col">${localRate}</td>` : `<td class="susc-col susc-na">—</td>`;
+    let localCell = "";
+    if (orgData && r.abx) {
+      const val = getSusc(selectedOrg, r.abx);
+      const rendered = val !== undefined ? suscCell(val) : `<span class="susc-na">—</span>`;
+      localCell = `<td class="susc-col">${rendered}</td>`;
+    } else if (orgData) {
+      localCell = `<td class="susc-col susc-na">—</td>`;
+    }
     return `
       <tr>
         <td class="reg-name">${r.name}</td>
         <td class="reg-dose">${r.dose}</td>
-        ${susc ? localCol : ""}
+        ${orgData ? localCell : ""}
         <td class="reg-note">${r.note}</td>
       </tr>`;
   }).join("");
 
-  const localHeader = susc ? `<th class="susc-col">Local %S<br><span class="susc-src">${selectedOrg}</span></th>` : "";
+  const localHeader = orgData
+    ? `<th class="susc-col">Local %S<br><span class="susc-src">${selectedOrg}</span></th>` : "";
 
   document.getElementById("result-area").innerHTML = `
     <div class="result-card">
       <div class="result-head">${site.label}</div>
-      ${susc ? `<div class="susc-note">Local susceptibility shown for <strong>${selectedOrg}</strong> (Trinity Hospital Minot, CY 2022)</div>` : ""}
+      ${orgData ? `<div class="susc-note">Local susceptibility: <strong>${selectedOrg}</strong> · ${facInfo.label}</div>` : ""}
       <div class="tbl-wrap">
         <table class="reg-tbl">
           <thead><tr>
@@ -151,11 +208,12 @@ function render() {
           <tbody>${rows}</tbody>
         </table>
       </div>
-      ${susc ? `<div class="legend-row">
-        <span class="susc-hi">≥90%</span> high susceptibility &nbsp;·&nbsp;
+      ${orgData ? `<div class="legend-row">
+        <span class="susc-hi">≥90%</span> high &nbsp;·&nbsp;
         <span class="susc-mid">70–89%</span> intermediate &nbsp;·&nbsp;
         <span class="susc-lo">&lt;70%</span> low &nbsp;·&nbsp;
-        <span class="susc-nr">~</span> not recommended
+        <span class="susc-nr">~</span> not recommended &nbsp;·&nbsp;
+        <span class="susc-na">—</span> not tested at this facility
       </div>` : ""}
     </div>`;
 }
@@ -170,5 +228,19 @@ siteSeg.querySelectorAll(".seg-btn").forEach(btn => btn.addEventListener("click"
   selectedOrg  = null;
   render();
 }));
+
+// Facility selector
+const facSel = document.getElementById("fac-sel");
+Object.entries(FACILITY_SUSC).forEach(([id, f]) => {
+  const opt = document.createElement("option");
+  opt.value = id;
+  opt.textContent = f.label;
+  if (id === selectedFacility) opt.selected = true;
+  facSel.appendChild(opt);
+});
+facSel.addEventListener("change", () => {
+  selectedFacility = facSel.value;
+  render();
+});
 
 render();
