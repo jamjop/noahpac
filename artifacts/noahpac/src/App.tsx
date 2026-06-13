@@ -17,6 +17,13 @@ const tools = [
   { path: "/peds",        src: "/peds/index.html",       title: "Pediatric Dosing" },
   { path: "/ddx",         src: "/ddx/index.html",        title: "Lab Differentials" },
   { path: "/antibiogram", src: "/antibiogram/index.html",title: "Local Antibiogram" },
+  { path: "/sepsis",      src: "/sepsis/index.html",     title: "Sepsis Screening" },
+  { path: "/wound",       src: "/wound/index.html",      title: "Wound & Tetanus" },
+  { path: "/allergy",     src: "/allergy/index.html",    title: "Antibiotic Allergy" },
+  { path: "/reportable",  src: "/reportable/index.html", title: "ND Reportable Conditions" },
+  { path: "/naloxone",    src: "/naloxone/index.html",   title: "Naloxone Reference" },
+  { path: "/empiric",     src: "/empiric/index.html",    title: "Empiric Therapy" },
+  { path: "/sti-guide",   src: "/sti-guide/index.html",  title: "STI Guidelines" },
 ];
 
 function Router() {
