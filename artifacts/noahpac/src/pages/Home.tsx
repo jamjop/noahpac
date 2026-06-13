@@ -138,6 +138,14 @@ export default function Home() {
           color: "slate",
           external: true,
         },
+        {
+          name: "Open Human Atlas",
+          desc: "Interactive 3D human anatomy reference with detailed anatomical structures across body systems. Useful for patient education and anatomical orientation.",
+          chips: ["3D Anatomy", "Free"],
+          href: "https://www.openhumanatlas.com/en",
+          color: "slate",
+          external: true,
+        },
       ],
     },
   ];
