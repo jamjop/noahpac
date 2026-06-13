@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Local Antibiogram — Minot, ND</title>
+<title>ND Antibiogram — Local Susceptibility Data</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/shared.css">
@@ -13,14 +13,16 @@
 
 <header class="app-header">
   <div class="header-inner">
-    <div class="eyebrow">Trinity Hospital · Minot, ND · CY 2022</div>
-    <h1>Local Antibiogram</h1>
+    <div id="eyebrow" class="eyebrow">Trinity Hospital · Minot, ND · CY 2022</div>
+    <h1>ND Antibiogram</h1>
     <a href="/" class="back" target="_top">← noahpac</a>
     <div class="datasource"><span class="dot"></span>ND HHS Archive · % susceptible · 1st isolate/patient/year</div>
   </div>
 </header>
 
 <div class="wrap">
+
+  <div id="facility-tabs" class="facility-tabs" role="tablist" aria-label="Select facility"></div>
 
   <div class="gram-tabs" role="tablist" aria-label="Gram stain filter">
     <button class="gram-tab active" data-gram="positive" role="tab" aria-selected="true">Gram-positive</button>
@@ -45,12 +47,13 @@
 </div>
 
 <footer>
+  <p id="source-note"></p>
   <p>
-    Source: <a href="https://www.hhs.nd.gov/health/diseases-conditions-and-immunization/antibiotic-resistance-and-antimicrobial-stewardship/antibiograms" target="_blank" rel="noopener">ND HHS Antibiogram Archive</a> · Trinity Hospital 2023 Antibiogram Guide (data January 1 – December 31, 2022).
-    † Rifampin should not be used as monotherapy. Gentamicin for staphylococci is used only in combination; Enterococcus gentamicin values reflect high-level aminoglycoside synergy (E. faecalis 82%, E. faecium 98%).
-    For serious Enterococcus infections use ampicillin + gentamicin; vancomycin reserved for penicillin-allergic patients.
-    For serious Pseudomonas infections use combination therapy (PIP/TAZ, MEM, FEP, or CAZ + tobramycin or ciprofloxacin).
-    <strong>Not medical advice.</strong> Individualize therapy with local culture results and clinical judgment.
+    Source: <a href="https://www.hhs.nd.gov/health/diseases-conditions-and-immunization/antibiotic-resistance-and-antimicrobial-stewardship/antibiograms" target="_blank" rel="noopener">ND HHS Antibiogram Archive</a>.
+    CFZ-U = cefazolin with urine-only breakpoints.
+    Gentamicin for staphylococci (synergy only); Enterococcus gentamicin = high-level aminoglycoside synergy.
+    AmpC-producing organisms (Enterobacter, Klebsiella aerogenes, Citrobacter, Serratia): ~ for cephalosporins reflects inducible resistance risk.
+    <strong>Not medical advice.</strong> Individualize therapy with culture results and clinical judgment.
   </p>
 </footer>
 

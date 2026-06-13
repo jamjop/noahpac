@@ -5,6 +5,15 @@ h1{font-size:clamp(22px,4.5vw,30px);font-stretch:75%;text-transform:uppercase;li
 .datasource{font-family:'IBM Plex Mono',monospace;font-size:10px;color:rgba(255,255,255,.6);margin-top:6px}
 .datasource .dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:#6ee7b7;margin-right:5px;vertical-align:middle}
 
+/* facility tabs */
+.facility-tabs{display:flex;flex-wrap:wrap;gap:8px;margin:16px 0 0}
+.fac-tab{display:flex;flex-direction:column;align-items:flex-start;padding:8px 14px;border-radius:var(--r-sm);border:1.5px solid var(--line);background:var(--surface);color:var(--ink-soft);cursor:pointer;transition:background .15s,color .15s,border-color .15s;text-align:left}
+.fac-tab.active{border-color:var(--purple);background:color-mix(in srgb,var(--surface) 80%,var(--purple) 20%);color:var(--ink)}
+.fac-tab:focus-visible{outline:2px solid var(--purple);outline-offset:2px}
+.fac-name{font-family:'Archivo',sans-serif;font-size:12px;font-weight:700;font-stretch:75%}
+.fac-loc{font-family:'IBM Plex Mono',monospace;font-size:9.5px;color:var(--ink-muted);margin-top:1px}
+.fac-tab.active .fac-loc{color:var(--purple)}
+
 /* gram tabs */
 .gram-tabs{display:flex;gap:8px;margin:16px 0 12px}
 .gram-tab{font-family:'IBM Plex Mono',monospace;font-size:12px;font-weight:600;padding:8px 18px;border-radius:50px;border:1.5px solid var(--line);background:var(--surface);color:var(--ink-soft);cursor:pointer;transition:background .15s,color .15s,border-color .15s}
