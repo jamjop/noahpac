@@ -46,8 +46,8 @@ const FACILITIES = [
     id: "trinity",
     name: "Trinity Hospital",
     location: "Minot, ND",
-    period: "CY 2022",
-    sourceNote: "ND HHS Archive · Trinity Hospital Antibiogram 2023 (Jan 1 – Dec 31, 2022 data) · % susceptible, 1st isolate/patient/year",
+    period: "2023",
+    sourceNote: "ND HHS Archive · Trinity Hospital Antibiogram 2023 (data period: Jan 1 – Dec 31, 2022) · % susceptible, 1st isolate/patient/year · hhs.nd.gov/…/2023-TrinityHealth-archive.pdf",
     organisms: [
       // ── Gram-positive ──
       { name:"Staph aureus (MSSA)",        gram:"positive", isolates:483,

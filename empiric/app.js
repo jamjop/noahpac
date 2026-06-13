@@ -1,7 +1,7 @@
 // Local susceptibility data — keyed by facility id → organism → antibiotic
 const FACILITY_SUSC = {
   trinity: {
-    label: "Trinity Hospital — Minot, ND (CY 2022)",
+    label: "Trinity Hospital — Minot, ND (2023, data: CY 2022)",
     data: {
       "E. coli":               {amp:64,ams:68,ptz:100,cfz:93,cfx:97,cxm:93,cro:95,caz:96,fep:96,mem:100,gen:94,tob:97,cip:"nr",lvx:"nr",sxt:84,nit:98},
       "Klebsiella pneumoniae": {ptz:98,cfz:97,cfx:96,cxm:94,cro:97,caz:98,fep:98,mem:100,gen:99,tob:99,sxt:94,nit:48},
