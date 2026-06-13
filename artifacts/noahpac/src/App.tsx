@@ -16,6 +16,7 @@ const tools = [
   { path: "/drugref",     src: "/drugref/index.html",    title: "Drug Reference" },
   { path: "/peds",        src: "/peds/index.html",       title: "Pediatric Dosing" },
   { path: "/ddx",         src: "/ddx/index.html",        title: "Lab Differentials" },
+  { path: "/antibiogram", src: "/antibiogram/index.html",title: "Local Antibiogram" },
 ];
 
 function Router() {

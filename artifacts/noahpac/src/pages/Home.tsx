@@ -66,6 +66,13 @@ export default function Home() {
           color: "green",
         },
         {
+          name: "Local Antibiogram",
+          desc: "Antimicrobial susceptibility rates for Trinity Hospital (Minot, ND) — 17 organisms, 26 antibiotics, color-coded by susceptibility threshold. Data from the ND HHS Antibiogram Archive (CY 2022, 1st isolate/patient/year).",
+          chips: ["Minot, ND", "CY 2022", "17 organisms"],
+          href: "/antibiogram",
+          color: "green",
+        },
+        {
           name: "Lab Differentials",
           desc: "Select any lab value to see differential diagnoses for elevated and decreased results. Covers 40+ tests across electrolytes, CBC, liver, thyroid, and more — with clinical context for each differential.",
           chips: ["40+ tests", "Differentials"],
