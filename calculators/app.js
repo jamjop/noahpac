@@ -7,7 +7,30 @@ function pct(n){ return fmt(n*100,1); }
 /* ── Calculator definitions ── */
 const CALCS = [
 
-  /* 1. ASCVD */
+  /* 1. Accutane Dosing */
+  {
+    id:"accutane", name:"Accutane Dosing", num:"01",
+    eyebrow:"Dermatology", source:"Weight-based isotretinoin cumulative dose guidelines",
+    render: pane => {
+      pane.innerHTML = calcHeader("Accutane (Isotretinoin) Dosing","Dermatology","Weight-based cumulative dose calculator") + `
+      <div class="fields">
+        ${field("Weight","accutane-weight","number","kg","","1","200")}
+        ${field("Planned daily dose","accutane-daily","number","mg/day","","","","e.g. 40")}
+      </div>
+      <div id="accutane-result" class="result-card"><div class="result-placeholder">Enter weight</div></div>
+      <button class="copy-btn" id="accutane-copy">&#x2398; Copy results</button>
+      <p class="note"><strong>How the duration projection is calculated:</strong> The target cumulative dose is 120 mg/kg — the minimum threshold at which relapse rates drop significantly per Layton &amp; Cunliffe (1992). Month 1 runs at the starting dose (0.5 mg/kg/day), contributing <em>starting dose × 30 days</em> of cumulative mg. The remaining mg needed to reach 120 mg/kg is divided by the planned daily dose to get the additional days. Total duration = 30 days + remaining days, expressed in 30-day months. The upper limit of 150 mg/kg shown above represents the ceiling beyond which no additional benefit has been demonstrated — not a separate target to reach.<br><br>Example: 46 kg patient on 40 mg/day. Target = 5,520 mg. Month 1 at 23 mg/day = 690 mg. Remaining = 4,830 mg ÷ 40 mg/day = 121 days. Total = 151 days = 5 months 1 day.<br><br><strong>References:</strong> Dosing parameters (0.5–1 mg/kg/day; cumulative target 120–150 mg/kg) are consistent with: Zaenglein AL et al. "Guidelines of care for the management of acne vulgaris." <em>J Am Acad Dermatol.</em> 2016;74(5):945–973 (AAD); and Layton AM, Cunliffe WJ. "Guidelines for optimal use of isotretinoin in acne." <em>J Am Acad Dermatol.</em> 1992;27(6 Pt 2):S2–7.</p>`;
+      pane.querySelectorAll('input, select').forEach(el => {
+        el.addEventListener('input', calcAccutane);
+        el.addEventListener('change', calcAccutane);
+      });
+      const acBtn = document.getElementById('accutane-copy');
+      if(acBtn) acBtn.addEventListener('click', () => copyAccutane(acBtn));
+      calcAccutane();
+    }
+  },
+
+  /* 2. ASCVD */
   {
     id:"ascvd", name:"ASCVD 10-yr Risk", num:"01",
     eyebrow:"Cardiovascular", source:"Pooled Cohort Equations · Goff et al. 2014 (ACC/AHA)",
@@ -453,6 +476,7 @@ const CALCS = [
       renderItems();
     }
   },
+
 ];
 
 /* ── HTML helpers ── */
@@ -863,6 +887,71 @@ function calcOttawa(){
   if(kneeEl){kneeEl.className=kneePos?'perc-result pos':'perc-result neg';kneeEl.textContent=kneePos?'Knee X-ray recommended':'Knee X-ray not required per Ottawa Rule';}
   if(ankleEl){ankleEl.className=anklePos?'perc-result pos':'perc-result neg';ankleEl.textContent=anklePos?'Ankle X-ray recommended':'Ankle X-ray not required per Ottawa Rule';}
   if(footEl){footEl.className=footPos?'perc-result pos':'perc-result neg';footEl.textContent=footPos?'Foot X-ray recommended':'Foot X-ray not required per Ottawa Rule';}
+}
+
+function calcAccutane(){
+  const weight = num('accutane-weight');
+  const daily = num('accutane-daily');
+  const el = document.getElementById('accutane-result');
+  if(isNaN(weight)||weight<=0){
+    el.innerHTML='<div class="result-placeholder">Enter weight</div>'; el.className='result-card'; return;
+  }
+  const lower = Math.round(weight*120);
+  const upper = Math.round(weight*150);
+  const startDose = Math.round(weight*0.5);
+  const maxDaily = Math.floor(weight);
+  let durationLine;
+  if(!isNaN(daily) && daily > 0){
+    const target = Math.round(weight*120);
+    const month1mg = startDose * 30;
+    const remainingDays = Math.ceil((target - month1mg) / daily);
+    const totalDays = 30 + remainingDays;
+    const months = Math.floor(totalDays / 30);
+    const days = totalDays % 30;
+    const dur = days > 0 ? `${months} months ${days} days` : `${months} months`;
+    durationLine = `If you will take <strong>${esc(String(daily))} mg</strong> of isotretinoin a day, your treatment will last <strong>${esc(dur)}</strong>.`;
+  } else {
+    durationLine = `<span class="calc-note">Enter planned daily dose above to calculate treatment duration.</span>`;
+  }
+  setResult('accutane-result', `
+    <div class="result-num">${esc(String(weight))} kg</div>
+    <div class="result-label">Accutane Dose Targets</div>
+    <div class="result-detail">
+      Lower cumulative dose: <strong>${esc(String(lower))} mg</strong> <span class="calc-note">· 120 mg/kg</span><br>
+      Upper cumulative dose: <strong>${esc(String(upper))} mg</strong> <span class="calc-note">· 150 mg/kg</span>
+      <div class="sub-result">
+        Lower daily dose: <strong>${esc(String(startDose))} mg/day</strong> <span class="calc-note">· 0.5 mg/kg</span><br>
+        Max daily dose: <strong>${esc(String(maxDaily))} mg/day</strong> <span class="calc-note">· 1 mg/kg</span>
+      </div>
+      <div class="sub-result">${durationLine}</div>
+    </div>`, '');
+}
+
+function copyAccutane(btn){
+  const weight = num('accutane-weight');
+  const daily = num('accutane-daily');
+  if(isNaN(weight)||weight<=0) return;
+  const lower = Math.round(weight*120);
+  const upper = Math.round(weight*150);
+  const startDose = Math.round(weight*0.5);
+  const maxDaily = Math.floor(weight);
+  const today = new Date().toLocaleDateString('en-US',{year:'numeric',month:'long',day:'numeric'});
+  let text = `Accutane Dosing\nWeight: ${weight}kg\n\nLower cumulative dose: ${lower}mg (120 mg/kg)\nUpper cumulative dose: ${upper}mg (150 mg/kg)\nLower daily dose: ${startDose} mg/day (0.5 mg/kg)\nMax daily dose: ${maxDaily} mg/day (1 mg/kg)`;
+  if(!isNaN(daily) && daily > 0){
+    const target = Math.round(weight*120);
+    const month1mg = startDose * 30;
+    const remainingDays = Math.ceil((target - month1mg) / daily);
+    const totalDays = 30 + remainingDays;
+    const months = Math.floor(totalDays / 30);
+    const days = totalDays % 30;
+    const dur = days > 0 ? `${months} months ${days} days` : `${months} months`;
+    text += `\n\nIf you will take ${daily} mg of isotretinoin a day, your treatment will last ${dur}.`;
+  }
+  text += `\n\nGenerated: ${today}\nSource: noahpac.com/calculators/`;
+  navigator.clipboard.writeText(text).then(()=>{
+    btn.classList.add('copied'); btn.textContent='✓ Copied';
+    setTimeout(()=>{ btn.classList.remove('copied'); btn.innerHTML='&#x2398; Copy results'; }, 2000);
+  });
 }
 
 function copyOttawa(e){
