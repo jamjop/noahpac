@@ -45,6 +45,20 @@ def save_state(state: dict) -> None:
     STATE_FILE.chmod(0o644)
 
 
+def _write_quarterly_result(app_id: str, app_name: str, app_url: str,
+                            status: str, findings: list[dict]) -> None:
+    import datetime as _dt
+    report_file = Path(f"/tmp/quarterly-report-{_dt.date.today()}.json")
+    try:
+        existing = json.loads(report_file.read_text()) if report_file.exists() else []
+        existing.append({'app_id': app_id, 'app_name': app_name, 'app_url': app_url,
+                         'status': status, 'findings': findings,
+                         'ran_at': _dt.datetime.now().isoformat(timespec='minutes')})
+        report_file.write_text(json.dumps(existing, indent=2))
+    except Exception as exc:
+        print(f"WARNING: could not write quarterly report: {exc}", file=sys.stderr)
+
+
 def push_notify(user: str, token: str, title: str, message: str) -> None:
     payload = json.dumps({
         "token": token, "user": user,
@@ -83,6 +97,8 @@ def main() -> int:
     if not changed:
         print(f"No change detected ({date.today()})")
         save_state(current)
+        _write_quarterly_result('reportable', 'ND Reportable Conditions', PAGE_URL,
+                                'no_change', [])
         return 0
 
     message = (
@@ -95,6 +111,10 @@ def main() -> int:
     print(message)
     push_notify(user, token, "ND Reportable Conditions Update", message)
     save_state(current)
+    _write_quarterly_result('reportable', 'ND Reportable Conditions', PAGE_URL, 'changed', [
+        {'detail': f"PDF Last-Modified: {known.get('last_modified', '?')} → {current['last_modified']}"},
+        {'detail': f"Content-Length: {known.get('content_length', '?')} → {current['content_length']} bytes"},
+    ])
     print("Notification sent.")
     return 0
 

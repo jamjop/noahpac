@@ -64,6 +64,20 @@ def save_state(state: dict) -> None:
     STATE_FILE.chmod(0o644)
 
 
+def _write_quarterly_result(app_id: str, app_name: str, app_url: str,
+                            status: str, findings: list[dict]) -> None:
+    import datetime as _dt
+    report_file = Path(f"/tmp/quarterly-report-{_dt.date.today()}.json")
+    try:
+        existing = json.loads(report_file.read_text()) if report_file.exists() else []
+        existing.append({'app_id': app_id, 'app_name': app_name, 'app_url': app_url,
+                         'status': status, 'findings': findings,
+                         'ran_at': _dt.datetime.now().isoformat(timespec='minutes')})
+        report_file.write_text(json.dumps(existing, indent=2))
+    except Exception as exc:
+        print(f"WARNING: could not write quarterly report: {exc}", file=sys.stderr)
+
+
 def push_notify(user: str, token: str, title: str, message: str, url: str) -> None:
     payload = json.dumps({
         "token": token, "user": user,
@@ -113,6 +127,8 @@ def main() -> int:
     if not all_new:
         print(f"No new files detected ({date.today()})")
         save_state(new_state)
+        _write_quarterly_result('naloxone', 'ND Overdose / Naloxone Data',
+                                SOURCES['nd_bh_data']['url'], 'no_change', [])
         return 0
 
     lines = [f"• [{label}] {url.split('/')[-1]}" for label, url, _ in all_new]
@@ -128,9 +144,13 @@ def main() -> int:
         title += " — new stats"
 
     print(message)
-    push_notify(user, token, title, message,
-                SOURCES["nd_bh_data"]["url"])
+    push_notify(user, token, title, message, SOURCES["nd_bh_data"]["url"])
     save_state(new_state)
+    findings = [{'detail': f"[{label}] New file: {url.split('/')[-1]}",
+                 'source': label, 'overdose_related': rel}
+                for label, url, rel in all_new]
+    _write_quarterly_result('naloxone', 'ND Overdose / Naloxone Data',
+                            SOURCES['nd_bh_data']['url'], 'changed', findings)
     print("Notification sent.")
     return 0
 
